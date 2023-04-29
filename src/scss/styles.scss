@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
+$enable-rounded: false;
+$enable-shadows: true;
+
+$font-family-base:  'Raleway', sans-serif;
+
+
+
+// Import variables
+@import "./variables.scss";
+
+// Import Bootstrap
+@import "bootstrap/scss/bootstrap.scss";
+
+// Global CSS
+@import "./global.scss";
+
+// Components
+@import "./components/sidenav.scss";
+@import "./components/icons.scss";
+
+// Sections
+@import "./sections/resume-section.scss";

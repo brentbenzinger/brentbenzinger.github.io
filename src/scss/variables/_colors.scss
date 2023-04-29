@@ -1,0 +1,23 @@
+// Pre-state grayscale colors used in other variables
+
+$gray-800: #343a40;
+
+// Override Bootstrap color system
+
+$orange: #bd5d38;
+$awesome-emerald: #00A388;
+$awesome-skyblue: #0395DE;
+$awesome-red: #DC3522;
+$awesome-pink: #EF4089;
+$awesome-orange: #FF6138;
+$awesome-nephritis: #27AE60;
+$awesome-concrete: #95A5A6;
+$awesome-darknight: #131A28;
+
+// Override Bootstrap default state colors
+
+$primary: $awesome-red;
+
+// Override Bootstrap yiq lightness value
+
+$yiq-contrasted-threshold: 205;
