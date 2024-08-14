@@ -317,7 +317,7 @@
                         Languages that use the Cyrillic alphabet have keyboard layouts that are unintuitive for people accustomed to typing in English.
                     </p>
 
-                    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+                    <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
                     <div id="app"><textarea rows="8" cols="32" @keydown="handleKeydown"></textarea></div>
 
                     <p>Written in Vue.js</p>
@@ -444,7 +444,6 @@
                                 let previousKeydown = '';
 
                                 const handleKeydown = (event) => {
-                                    console.log("prevkey: " + previousKeydown);
                                     // this returns if they push any modifier key, like shift or ctrl
                                     // we don't want those registering as previousKeydown
                                     if (event.key.length > 1) return;
@@ -527,7 +526,6 @@
                                         textarea.dispatchEvent(new Event('input'));
                                     }
                                     previousKeydown = event.key;
-                                    console.log("previousKeydown set: " + previousKeydown);
                                 }
                                 return {
                                     handleKeydown,
