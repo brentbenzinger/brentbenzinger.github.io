@@ -309,6 +309,207 @@
                     <h2 class="mb-5">Interests</h2>
                     <p>Apart from being a programmer, I enjoy running in nice weather.  I'm a voracious reader; I read books from all classes of the dewey decimal system.  I especially like literature, pop-science, and fantasy/sci-fi.  I love foreign languages, my second language is Japanese and I'm an enthusiastic beginner at Russian.</p>
                     <p class="mb-0">My first passion is music.  I play a handful of instruments, and can be found playing classical guitar at wedding ceremonies for friends and families.</p>
+
+                    
+                    <h3 class="mt-5">Phonetic Cyrillic Keyboard</h3>
+                    <p>
+                        If you know how to sound out letters in the Cyrillic alphabet you can type the sounds here.
+                        Languages that use the Cyrillic alphabet have keyboard layouts that are unintuitive for people accustomed to typing in English.
+                    </p>
+
+                    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+                    <div id="app"><textarea rows="8" cols="32" @keydown="handleKeydown"></textarea></div>
+
+                    <p>Written in Vue.js</p>
+
+                    <script>
+                        const { createApp, ref } = Vue
+
+                        createApp({
+                            setup() {
+                                const text = ref('');
+
+                                const mappings = {
+
+                                    'a': 'а',
+                                    'A': 'А',
+
+                                    'k': 'к',
+                                    'K': 'К',
+
+                                    'm': 'м',
+                                    'M': 'М',
+
+                                    'o': 'o',
+                                    'O': 'O',
+
+                                    't': 'т',
+                                    'T': 'Т',
+
+                                    'b': 'б',
+                                    'B': 'Б',
+
+                                    'g': 'г',
+                                    'G': 'Г',
+
+                                    'd': 'д',
+                                    'D': 'Д',
+
+                                    'z': 'з',
+                                    'Z': 'З',
+
+                                    'i': 'и',
+                                    'I': 'И',
+
+                                    'l': 'л',
+                                    'L': 'Л',
+
+                                    'p': 'п',
+                                    'P': 'П',
+
+                                    'f': 'ф',
+                                    'F': 'Ф',
+
+                                    'e': 'э',
+                                    'E': 'Э',
+
+                                    'n': 'н',
+                                    'N': 'Н',
+
+                                    'r': 'р',
+                                    'R': 'Р',
+
+                                    's': 'с',
+                                    'S': 'С',
+                                    'c': 'с',
+                                    'C': 'С',
+
+                                    'u': 'у',
+                                    'U': 'У',
+
+                                    'h': 'х',
+                                    'H': 'Х',
+
+                                    'v': 'в',
+                                    'V': 'В',
+
+                                    // this reminds me of `xi` in pinyin
+                                    'x': 'щ',
+                                    'X': 'Щ',
+
+                                    // kind of like a very soft j I guess
+                                    'j': 'ж',
+                                    'J': 'Ж',
+
+                                }
+
+                                const yLeaderMappings = {
+                                    'a': 'я',
+                                    'A': 'Я',
+
+                                    'i': 'й',
+                                    'I': 'Й',
+
+                                    'u': 'ю',
+                                    'U': 'Ю',
+
+                                    'e': 'е',
+                                    'E': 'Е',
+
+                                    'o': 'ё',
+                                    'O': 'Ё',
+                                }
+
+                                const noOpChars = [
+                                    'q', 'Q',
+                                    'w', 'W',
+                                    // 'j', 'J',
+                                    // 'x', 'X',
+                                    // 's', 'S',
+                                ];
+
+                                // problems to solve:
+                                // ts Ц ц
+                                // ch Ч ч
+                                // sh Ш ш  sh matches pinyin
+                                // ui  ы
+                                // <leader>h - hard
+                                // <leader>s - soft
+
+                                let yLeader = false;
+                                let previousKeydown = null;
+
+                                const handleKeydown = (event) => {
+                                    // this returns if they push any modifier key, like shift or ctrl
+                                    // we don't want those registering as previousKeyDown
+                                    if (event.key.length > 1) return;
+
+                                    if (event.key.length === 1 && !event.ctrlKey && !event.altKey && !event.metaKey) {
+                                        event.preventDefault();
+
+                                        const textarea = event.target;
+                                        const start = textarea.selectionStart;
+                                        const end = textarea.selectionEnd;
+
+                                        const before = textarea.value.slice(0, start);
+                                        const after = textarea.value.slice(end);
+                                        if (event.key == 'y' || event.key == 'Y') {
+                                            yLeader = true;
+                                            previousKeydown = event.key;
+                                            return;
+                                        }
+
+                                        let char = '';
+                                        if (noOpChars.includes(event.key)) {
+                                            char = '';
+                                        } else if (yLeader) {
+                                            // TODO, leading with capital Y should capitalize the mapped character even if the
+                                            // shift isn't being held during the second character's keydown
+                                            char = yLeaderMappings[event.key] || mappings[event.key] || event.key;
+                                            yLeader = false;
+                                        } else {
+                                            char = mappings[event.key] || event.key;
+                                        }
+                                        console.log(previousKeydown);
+                                        console.log(event.key);
+                                        // TODO repeat this snippet for other two-character combos like ch, sh
+                                        if (previousKeydown && previousKeydown.toLowerCase() === 't' && event.key.toLowerCase() === 's') {
+                                            if (previousKeydown === 'T' || event.key === 'S') {
+                                                char = 'Ц';
+                                            } else {
+                                                char = 'ц';
+                                            }
+                                            textarea.value = before.substring(0, before.length - 1) + char + after;
+                                            textarea.setSelectionRange(start, start);
+                                            return;
+                                        } else {
+                                            textarea.value = before + char + after;
+                                        }
+
+
+                                        // Move the cursor to the correct position
+                                        textarea.setSelectionRange(start + 1, start + 1);
+
+                                        // Trigger input event to update v-model
+                                        textarea.dispatchEvent(new Event('input'));
+                                    }
+                                    previousKeydown = event.key;
+                                    console.log("previousKeydown set: " + previousKeydown);
+                                }
+                                return {
+                                    handleKeydown,
+                                };
+
+
+
+
+
+
+
+                            }
+                        }).mount('#app')
+                    </script>
+
                 </div>
             </section>
 
