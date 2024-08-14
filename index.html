@@ -440,8 +440,9 @@
                                 let previousKeydown = null;
 
                                 const handleKeydown = (event) => {
+                                    console.log("prevkey: " + previousKeydown);
                                     // this returns if they push any modifier key, like shift or ctrl
-                                    // we don't want those registering as previousKeyDown
+                                    // we don't want those registering as previousKeydown
                                     if (event.key.length > 1) return;
 
                                     if (event.key.length === 1 && !event.ctrlKey && !event.altKey && !event.metaKey) {
@@ -463,15 +464,16 @@
                                         if (noOpChars.includes(event.key)) {
                                             char = '';
                                         } else if (yLeader) {
-                                            // TODO, leading with capital Y should capitalize the mapped character even if the
-                                            // shift isn't being held during the second character's keydown
-                                            char = yLeaderMappings[event.key] || mappings[event.key] || event.key;
+                                            // if they typed a capital Y as the leader key, capitalize the result even if they didn't hold shift for the entire combo
+                                            if (previousKeydown === 'Y') {
+                                                char = yLeaderMappings[event.key.toUpperCase()] || mappings[event.key.toUpperCase()] || event.key.toUpperCase();
+                                            } else {
+                                                char = yLeaderMappings[event.key] || mappings[event.key] || event.key;
+                                            }
                                             yLeader = false;
                                         } else {
                                             char = mappings[event.key] || event.key;
                                         }
-                                        console.log(previousKeydown);
-                                        console.log(event.key);
                                         // TODO repeat this snippet for other two-character combos like ch, sh
                                         if (previousKeydown && previousKeydown.toLowerCase() === 't' && event.key.toLowerCase() === 's') {
                                             if (previousKeydown === 'T' || event.key === 'S') {
