@@ -393,6 +393,10 @@
                                     'v': 'в',
                                     'V': 'В',
 
+                                    // Ukrainian W sound
+                                    'w': 'в',
+                                    'W': 'В',
+
                                     // this reminds me of `xi` in pinyin
                                     'x': 'щ',
                                     'X': 'Щ',
@@ -422,7 +426,7 @@
 
                                 const noOpChars = [
                                     'q', 'Q',
-                                    'w', 'W',
+                                    // 'w', 'W',
                                     // 'j', 'J',
                                     // 'x', 'X',
                                     // 's', 'S',
@@ -437,7 +441,7 @@
                                 // <leader>s - soft
 
                                 let yLeader = false;
-                                let previousKeydown = null;
+                                let previousKeydown = '';
 
                                 const handleKeydown = (event) => {
                                     console.log("prevkey: " + previousKeydown);
@@ -475,11 +479,38 @@
                                             char = mappings[event.key] || event.key;
                                         }
                                         // TODO repeat this snippet for other two-character combos like ch, sh
-                                        if (previousKeydown && previousKeydown.toLowerCase() === 't' && event.key.toLowerCase() === 's') {
+                                        if (previousKeydown.toLowerCase() === 't' && event.key.toLowerCase() === 's') {
                                             if (previousKeydown === 'T' || event.key === 'S') {
                                                 char = 'Ц';
                                             } else {
                                                 char = 'ц';
+                                            }
+                                            textarea.value = before.substring(0, before.length - 1) + char + after;
+                                            textarea.setSelectionRange(start, start);
+                                            return;
+                                        } else if (previousKeydown.toLowerCase() === 'c' && event.key.toLowerCase() === 'h') {
+                                            if (previousKeydown === 'C' || event.key === 'H') {
+                                                char = 'Ч';
+                                            } else {
+                                                char = 'ч';
+                                            }
+                                            textarea.value = before.substring(0, before.length - 1) + char + after;
+                                            textarea.setSelectionRange(start, start);
+                                            return;
+                                        } else if (previousKeydown.toLowerCase() === 's' && event.key.toLowerCase() === 'h') {
+                                            if (previousKeydown === 'S' || event.key === 'H') {
+                                                char = 'Ш';
+                                            } else {
+                                                char = 'ш';
+                                            }
+                                            textarea.value = before.substring(0, before.length - 1) + char + after;
+                                            textarea.setSelectionRange(start, start);
+                                            return;
+                                        } else if (previousKeydown.toLowerCase() === 'u' && event.key.toLowerCase() === 'i') {
+                                            if (previousKeydown === 'U' || event.key === 'I') {
+                                                char = 'Ы';
+                                            } else {
+                                                char = 'ы';
                                             }
                                             textarea.value = before.substring(0, before.length - 1) + char + after;
                                             textarea.setSelectionRange(start, start);
