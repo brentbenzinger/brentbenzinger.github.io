@@ -327,7 +327,7 @@
                     </style>
                     
                     <h3 class="mt-5">Phonetic Cyrillic Keyboard</h3>
-                    <p>Written in <a href="https://vuejs.org/" target="_blank" class="vue-mint">Vue.js</a></p>
+                    <p>Written in <a href="https://vuejs.org/" target="_blank" class="vue-mint">Vue</a></p>
                     <p>
                         If you know how to sound out letters in the Cyrillic alphabet you can type the sounds here.
                         Languages that use the Cyrillic alphabet have keyboard layouts that are unintuitive for people accustomed to typing in English.
@@ -347,6 +347,112 @@
                             @keydown="handleKeydown"
                             ></textarea>
                     </div>
+
+                    <div>
+                        <h5 class="mt-3">Notes on the mappings</h5>
+                        <div class="mapping-section">
+                            <table class="mapping-table">
+                                <tr><th>Input</th><th>Output</th><th></th></tr>
+                                <tr><td>"s</td><td>ь</td><td>Soft sign</td></tr>
+                                <tr><td>"h</td><td>ъ</td><td>Hard sign</td></tr>
+                            </table>
+                            These two symbols don't have a sound, they modify the sound of other characters.  As a mnemonic the keystrokes <span class="writing-symbol">s</span> and <span class="writing-symbol">h</span> stand for "soft" and "hard" respectively.
+                        </div>
+                        <div class="mapping-section">
+                            <table class="mapping-table">
+                                <tr><th>Input</th><th>Output</th></tr>
+                                <tr><td>ui</td><td>ы</td></tr>
+                            </table>
+                            This sound is very alien to my North-American-English ears and I'm terrible at pronouncing it.  If you take the IPA pronunciation of <span class="writing-symbol">/u/</span> and <span class="writing-symbol">/i/</span> and say it with the back of your throat you kind of get close to this sound, so it's the best key combination I could come up with.
+                        </div>
+                        <div class="mapping-section">
+                            <table class="mapping-table">
+                                <tr><th>Input</th><th>Output</th></tr>
+                                <tr><td>sh</td><td>ш</td></tr>
+                                <tr><td>x</td><td>щ</td></tr>
+                            </table>
+                            Russian has two sounds that fall under the <span class="writing-symbol">sh</span> noise we use in English.  Mandarin Chinese differentiates these two sounds, so I borrowed the writing convention from Mandarin Pinyin's <span class="writing-symbol">shi</span> vs <span class="writing-symbol">xi</span>.
+                        </div>
+                        <div class="mapping-section">
+                            <table class="mapping-table">
+                                <tr><th>Input</th><th>Output</th></tr>
+                                <tr><td>ya</td><td>я</td></tr>
+                                <tr><td>yi</td><td>й</td></tr>
+                                <tr><td>yu</td><td>ю</td></tr>
+                                <tr><td>ye</td><td>е</td></tr>
+                                <tr><td>yo</td><td>ё</td></tr>
+                            </table>
+                            These remind me of typing <span class="writing-symbol">や</span> [ya] <span class="writing-symbol">ゆ</span> [yu] and <span class="writing-symbol">よ</span> [yo] in Japanese.
+                        </div>
+                        <div class="mapping-section">
+                            <table class="mapping-table">
+                                <tr><th>Input</th><th>Output</th></tr>
+                                <tr><td>j</td><td>ж</td></tr>
+                            </table>
+                            I know <span class="writing-symbol">ж</span> is usually transliterated as <span class="writing-symbol">zh</span> but the English sound for <span class="writing-symbol">j</span> is close enough to feel intuitive to me while I'm typing (don't use this as a pronunciation guide though).
+                        </div>
+                        <div class="mapping-section">
+                            <table class="mapping-table">
+                                <tr><th>Input</th><th>Output</th></tr>
+                                <tr><td>s</td><td>с</td></tr>
+                                <tr><td>c</td><td>с</td></tr>
+                            </table>
+                            The Cyrillic <span class="writing-symbol">с</span> unambiguously maps to the English <span class="writing-symbol">s</span>.  But in English <span class="writing-symbol">c</span> is also pronounced as <span class="writing-symbol">s</span> sometimes, the Cyrillic and English characters for <span class="writing-symbol">c</span> are the same, and the <span class="writing-symbol">c</span> key when typed alone was available, so I put this Cyrillic character on the keyboard twice.
+                        </div>
+                        <div class="mapping-section">
+                            <table class="mapping-table split-mappings">
+                                <tr><th>Input</th><th>Output</th></tr>
+                                <tr><td>ts</td><td>ц</td></tr>
+                                <tr><td>t's</td><td>тс</td></tr>
+                            </table>
+                            <table class="mapping-table split-mappings">
+                                <tr><th>Input</th><th>Output</th></tr>
+                                <tr><td>sh</td><td>ш</td></tr>
+                                <tr><td>s'h</td><td>сх</td></tr>
+                            </table>
+                            <table class="mapping-table split-mappings">
+                                <tr><th>Input</th><th>Output</th></tr>
+                                <tr><td>ch</td><td>ч</td></tr>
+                                <tr><td>c'h</td><td>сх</td></tr>
+                            </table>
+                            
+                            <table class="mapping-table split-mappings">
+                                <tr><th>Input</th><th>Output</th></tr>
+                                <tr><td>ui</td><td>ы</td></tr>
+                                <tr><td>u'i</td><td>уи</td></tr>
+                            </table>
+                            <br>
+                            Sometimes two characters form a composite that gets its own character, if you want to prevent this you can separate these with an apostrophe.
+                        </div>
+                    </div>
+                    <style>
+
+                        .mapping-section {
+                            margin-top: 1.25rem;
+                        }
+                        .split-mappings {
+                            display: inline-block;
+                            margin-right: 12px;
+                        }
+                        .writing-symbol {
+                            color: #e83e8c;
+                        }
+                        .mapping-table td {
+                            color: #e83e8c;
+                        }
+                        .mapping-table th {
+                            font-weight: 400;
+                        }
+                        .mapping-table td, .mapping-table th {
+                            border-collapse: unset;
+                            border: 1px solid #E3E3E3;
+                            padding: 4px;
+                        }
+                        .mapping {
+                            white-space: pre;
+                            display: block;
+                        }
+                    </style>
 
                     <script>
                         const { createApp, ref } = Vue
@@ -452,6 +558,7 @@
 
                                 const noOpChars = [
                                     'q', 'Q',
+                                    '\'',
                                     // 'w', 'W',
                                     // 'j', 'J',
                                     // 'x', 'X',
@@ -503,7 +610,6 @@
                                         } else {
                                             char = mappings[event.key] || event.key;
                                         }
-                                        // TODO repeat this snippet for other two-character combos like ch, sh
                                         if (previousKeydown.toLowerCase() === 't' && event.key.toLowerCase() === 's') {
                                             if (previousKeydown === 'T' || event.key === 'S') {
                                                 char = 'Ц';
@@ -536,6 +642,24 @@
                                                 char = 'Ы';
                                             } else {
                                                 char = 'ы';
+                                            }
+                                            textarea.value = before.substring(0, before.length - 1) + char + after;
+                                            textarea.setSelectionRange(start, start);
+                                            return;
+                                        } else if (previousKeydown === '"' && event.key.toLowerCase() === 's') {
+                                            if (previousKeydown === 'S') {
+                                                char = 'Ь';
+                                            } else {
+                                                char = 'ь';
+                                            }
+                                            textarea.value = before.substring(0, before.length - 1) + char + after;
+                                            textarea.setSelectionRange(start, start);
+                                            return;
+                                        } else if (previousKeydown === '"' && event.key.toLowerCase() === 'h') {
+                                            if (previousKeydown === 'H') {
+                                                char = 'Ъ';
+                                            } else {
+                                                char = 'ъ';
                                             }
                                             textarea.value = before.substring(0, before.length - 1) + char + after;
                                             textarea.setSelectionRange(start, start);
